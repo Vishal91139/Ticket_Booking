@@ -40,7 +40,6 @@ router.post('/signup', async (req, res) => {
 
 
   
-// Login Route
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -57,12 +56,29 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
 
+    // Store user info in session
+    req.session.user = { email: user.email }; // Save user email or any other info you want in session
+
     // Success response
+    // console.log(req.session)
     res.status(200).json({ message: 'Login successful', user: { email: user.email } });
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ message: 'Something went wrong' });
   }
+});
+
+//logout
+router.post('/logout', (req, res) => {
+  console.log('log u out')
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ message: 'Error logging out' });
+    }
+    console.log(req.session)
+    res.clearCookie('connect.sid'); // Clear the session cookie
+    res.status(200).json({ message: 'Logged out successfully' });
+  });
 });
 
 

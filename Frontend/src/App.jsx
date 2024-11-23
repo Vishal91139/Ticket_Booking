@@ -7,20 +7,26 @@ import EventsPage from './components/EventsPage';
 import BookingsPage from './components/BookingsPage';
 import ProfilePage from './components/ProfilePage';
 import Navbar from './components/Navbar';
+import { AuthProvider } from './routes/authContext'; // Import your AuthContext
+import ProtectedRoute from './routes/ProtectedRoute'; // Import ProtectedRoute
 
 const App = () => {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/events" element={<EventsPage />} />
-        <Route path="/bookings" element={<BookingsPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          
+          {/* Wrap protected routes with ProtectedRoute */}
+          <Route path="/home" element={<ProtectedRoute element={<HomePage />} />} />
+          <Route path="/movies" element={<ProtectedRoute element={<MoviesPage />} />} />
+          <Route path="/events" element={<ProtectedRoute element={<EventsPage />} />} />
+          <Route path="/bookings" element={<ProtectedRoute element={<BookingsPage />} />} />
+          <Route path="/profile" element={<ProtectedRoute element={<ProfilePage />} />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 };
 
