@@ -78,6 +78,12 @@ button:hover {
   transform: scale(1.03);
 }
 
+.message{
+  width: 100%;
+  text-align: center;
+  color: rgb(232, 164, 3);
+}
+
 .login {
   height: 460px;
   background: #eee;

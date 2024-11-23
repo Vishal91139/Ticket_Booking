@@ -10,6 +10,7 @@ app.use(cors()); // Enable CORS for frontend to access the API
 
 // Use the routes
 app.use("/api/auth", authRoutes);
+// app.use("/", mainRoutes)
 
 // MongoDB connection
 mongoose

@@ -1,38 +1,44 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // For navigation
 import axios from 'axios';
-import './LoginPage.css';
+import '../../public/stylesheets/LoginPage.css'; // Assuming you have styles here
 
 const LoginPage = () => {
-  const [signupEmail, setsignupEmail] = useState('');
-  const [signupPswd, setsignupPswd] = useState('');
-  const [loginEmail, setloginEmail] = useState('');
-  const [loginPswd, setloginPswd] = useState('');
+  const [signupEmail, setSignupEmail] = useState('');
+  const [signupPswd, setSignupPswd] = useState('');
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPswd, setLoginPswd] = useState('');
+  const [message, setMessage] = useState(''); // State to hold success/error message
+  const navigate = useNavigate(); // Initialize navigate for redirection
 
   // Sign up handler
   const signupHandler = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload
     try {
       const response = await axios.post('http://localhost:5000/api/auth/signup', {
         email: signupEmail,
         password: signupPswd,
       });
-      console.log('Signup successful:', response);
+      setMessage('Signup successful! Please log in to proceed.'); // Set success message
+      setSignupEmail('');
+      setSignupPswd('');
     } catch (error) {
-      console.error('Signup error:', error.response?.data || error.message);
+      setMessage(error.response?.data?.message || 'Signup failed!'); // Set error message
     }
   };
 
   // Login handler
   const loginHandler = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', {
         email: loginEmail,
         password: loginPswd,
       });
-      console.log('Login successful:', response.data);
+      setMessage('Login successful! Redirecting to home page...'); // Set success message
+      setTimeout(() => navigate('/home'), 2000); // Redirect after 2 seconds
     } catch (error) {
-      console.error('Login error:', error.response?.data || error.message);
+      setMessage(error.response?.data?.message || 'Login failed!'); // Set error message
     }
   };
 
@@ -40,13 +46,16 @@ const LoginPage = () => {
     <div className="main">
       <input type="checkbox" id="chk" aria-hidden="true" />
 
+      {/* Display Success/Error Message */}
+      {message && <p className="message">{message}</p>}
+
       {/* Sign Up Form */}
       <div className="signup">
         <form onSubmit={signupHandler}>
           <label htmlFor="chk" aria-hidden="true">Sign up</label>
           <input
             value={signupEmail}
-            onChange={(e) => setsignupEmail(e.target.value)}
+            onChange={(e) => setSignupEmail(e.target.value)}
             type="email"
             name="email"
             placeholder="Email"
@@ -54,7 +63,7 @@ const LoginPage = () => {
           />
           <input
             value={signupPswd}
-            onChange={(e) => setsignupPswd(e.target.value)}
+            onChange={(e) => setSignupPswd(e.target.value)}
             type="password"
             name="password"
             placeholder="Password"
@@ -70,7 +79,7 @@ const LoginPage = () => {
           <label htmlFor="chk" aria-hidden="true">Login</label>
           <input
             value={loginEmail}
-            onChange={(e) => setloginEmail(e.target.value)}
+            onChange={(e) => setLoginEmail(e.target.value)}
             type="email"
             name="email"
             placeholder="Email"
@@ -78,13 +87,13 @@ const LoginPage = () => {
           />
           <input
             value={loginPswd}
-            onChange={(e) => setloginPswd(e.target.value)}
+            onChange={(e) => setLoginPswd(e.target.value)}
             type="password"
-            name="pswd"
+            name="password"
             placeholder="Password"
             required
           />
-          <button>Login</button>
+          <button type="submit">Login</button>
         </form>
       </div>
     </div>
