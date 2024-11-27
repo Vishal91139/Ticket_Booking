@@ -25,22 +25,30 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
-      <div className="logo">Ticket Booking</div>
-      <ul className="nav-links">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/movies">Movies</Link></li>
-        <li><Link to="/events">Events</Link></li>
-        <li><Link to="/bookings">My Bookings</Link></li>
-        <li><Link to="/profile">Profile</Link></li>
-        {/* Instead of Link, use the logout handler */}
+    <header className="navBar flex items-end justify-between p-7 fixed top-0 left-0 w-full">
+      <div className="logo text-3xl ml-8 text-orange-400">Movie Love</div>
+      <div>
+        <ul className="navLinks flex space-x-16 text-white ">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Events</a></li>
+          <li><a href="#">Plays</a></li>
+          <li><a href="#">Sports</a></li>
+          <li><a href="#">Upcoming</a></li>
+        </ul>
+      </div>
+      <div className="search space-x-4">
+        <input className='header-input p-1.5 pl-3 rounded-full'
+          type="text"
+          placeholder="Search movie"
+          aria-label="Search movies"
+        />
         {isAuthenticated ? (
-          <li><Link onClick={logout}>Logout</Link></li>
+          <button className='header-button text-lg bg-orange-400 p-1 px-4 rounded-full hover:bg-orange-500 ' aria-label="Sign up"><Link onClick={logout}>Logout</Link></button>
         ) : (
-          <li><Link to="/">Login</Link></li>
+          <button className='header-button text-lg bg-orange-400 p-1 px-3 rounded-full hover:bg-orange-500 ' aria-label="Sign up"><Link to="/">Sign Up</Link></button>
         )}
-      </ul>
-    </nav>
+      </div>
+    </header>
   );
 };
 

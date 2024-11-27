@@ -55,7 +55,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="main">
+    <div className="main1">
+    <div className="main2">
       <input type="checkbox" id="chk" aria-hidden="true" />
 
       {/* Display Success/Error Message */}
@@ -67,7 +68,8 @@ const LoginPage = () => {
           <label htmlFor="chk" aria-hidden="true">
             Sign up
           </label>
-          <input
+          <input 
+            className="signInput"
             value={signupEmail}
             onChange={(e) => setSignupEmail(e.target.value)}
             type="email"
@@ -75,7 +77,8 @@ const LoginPage = () => {
             placeholder="Email"
             required
           />
-          <input
+          <input 
+            className="signInput" 
             value={signupPswd}
             onChange={(e) => setSignupPswd(e.target.value)}
             type="password"
@@ -83,7 +86,7 @@ const LoginPage = () => {
             placeholder="Password"
             required
           />
-          <button type="submit">Sign up</button>
+          <button className="signButton" type="submit">Sign up</button>
         </form>
       </div>
 
@@ -93,7 +96,8 @@ const LoginPage = () => {
           <label htmlFor="chk" aria-hidden="true">
             Login
           </label>
-          <input
+          <input 
+            className="signInput"
             value={loginEmail}
             onChange={(e) => setLoginEmail(e.target.value)}
             type="email"
@@ -101,7 +105,8 @@ const LoginPage = () => {
             placeholder="Email"
             required
           />
-          <input
+          <input 
+            className="signInput"
             value={loginPswd}
             onChange={(e) => setLoginPswd(e.target.value)}
             type="password"
@@ -109,9 +114,10 @@ const LoginPage = () => {
             placeholder="Password"
             required
           />
-          <button type="submit">Login</button>
+          <button className="signButton" type="submit">Login</button>
         </form>
       </div>
+    </div>
     </div>
   );
 };

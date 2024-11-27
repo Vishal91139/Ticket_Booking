@@ -12,6 +12,7 @@ import ProtectedRoute from './routes/ProtectedRoute'; // Import ProtectedRoute
 
 const App = () => {
   return (
+    <>
     <AuthProvider>
       <Router>
         <Navbar />
@@ -27,6 +28,7 @@ const App = () => {
         </Routes>
       </Router>
     </AuthProvider>
+    </>
   );
 };
 
