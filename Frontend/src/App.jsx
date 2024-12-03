@@ -11,6 +11,7 @@ import { AuthProvider } from './routes/authContext'; // Import your AuthContext
 import ProtectedRoute from './routes/ProtectedRoute'; // Import ProtectedRoute
 
 const App = () => {
+  
   return (
     <>
     <AuthProvider>
